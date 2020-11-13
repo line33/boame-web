@@ -1,0 +1,99 @@
+<section class="page-intro">
+	<a class="arrow-back" $href="manager/volunteers">
+		<img $src="arrow-left-black.svg"/>
+	</a>
+	<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Volunteer</a></span>
+	<h1 class="heading-text">Overview</h1>
+</section>
+
+@if (is_object($info))
+<section class="form-tabs">
+	<div class="volunteer-container">
+
+		<div class="box-group">
+			<label class="label-group">
+				<span>Firstname</span>
+				<p>{ucfirst($info->firstname)}</p>
+			</label>
+
+			<label class="label-group">
+				<span>Lastname</span>
+				<p>{ucfirst($info->lastname)}</p>
+			</label>
+		</div>
+
+		<label class="label-group box-row">
+			<span>Email</span>
+			<p><a href="mailto:{$info->email}" class="link">{$info->email}</a></p>
+		</label>
+
+		<label class="label-group box-row">
+			<span>Gender</span>
+			<p>{ucfirst($info->gender)}</p>
+		</label>
+
+		<div class="box-group">
+			<label class="label-group">
+				<span>Telephone</span>
+				<p><a href="tel:{$info->telephone}" class="link">{$info->telephone}</a></p>
+			</label>
+
+			<label class="label-group">
+				<span>Position</span>
+				<p>{ucfirst($info->information->position)}</p>
+			</label>
+		</div>
+
+		<div class="box-group">
+			<label class="label-group">
+				<span>Residential Address</span>
+				<p>{ucfirst($info->information->residential_address)}</p>
+			</label>
+
+			<label class="label-group">
+				<span>CV</span>
+				<p><a href="?download={$info->information->cv_address}" class="download-btn">Click here to download</a></p>
+			</label>
+		</div>
+
+		<label class="label-group box-row">
+			<span>Biography</span>
+			<p>{ucfirst($info->information->biography)}</p>
+		</label>
+
+
+		<div class="box-group" php-if="$info->information->approved != 0">
+			<label class="label-group">
+				<span>Comment</span>
+				<p>{ucfirst($info->information->comment)}</p>
+			</label>
+
+			<label class="label-group">
+				<span>Approved By</span>
+				<p>{ucwords($info->information->approved_by_account->lastname . ' ' . $info->information->approved_by_account->firstname)}</p>
+			</label>
+
+		</div>
+
+		<!-- approve form -->
+		<form action="" method="POST" php-if="$info->information->approved == 0">
+			@method('@approveVolunteer');
+			@csrf;
+
+			<label class="label-group">
+				<span>Approve Volunteer</span>
+				<textarea placeholder="Please leave a comment" required name="comment">@post('comment');</textarea>
+				<input type="hidden" name="accountid" value="{$info->accountid}"/>
+			</label>
+
+			<button class="btn btn-curve" type="submit">Approve</button>
+		</form>
+		
+
+	</div>
+	{$bgImage = fromStorage($info->display_image);}
+	<label class="form-select-area" for="select_box" $background-image="$bgImage">
+		
+	</label>
+</section>
+@endif

@@ -1,0 +1,57 @@
+<section class="page-intro">
+	<a class="arrow-back" $href="manager/feedbacks">
+		<img $src="arrow-left-black.svg"/>
+	</a>
+	<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="@link('manager/feedbacks');">Feedbacks</a></span>
+	<h1 class="heading-text">{ucwords($info->fullname)}</h1>
+</section>
+
+<div class="feedback-container">
+	<div class="feedbacks">
+
+		<em>
+			"{ucfirst($info->feedback)}"
+		</em>
+
+		<div class="feedback-replies">
+
+			<div class="feedback-header">
+				<h1>Replies</h1>
+				<p>Showing all the replies for this feedback</p>
+			</div>
+
+			<div class="feedback-body">
+				@if ($data->status == 'success')	
+					@foreach ($data->replies as $reply)
+					<div class="feedback-row">
+						<div class="feedback-row-header">
+							<img $src="demo-article-image2.png"/>
+							<div class="feedback-from">
+								<h2>{$reply->account == null ? ucwords($info->fullname) : ucwords($reply->account->lastname . ' ' . $reply->account->firstname)}</h2>
+								<span>{date('Y-m-d g:i a', $reply->date_created)}</span>
+							</div>
+						</div>
+
+						<div class="feedback-row-body">
+							<p>{ucfirst($reply->feedback)}</p>
+						</div>
+					</div>
+					@endforeach
+				@endif
+			</div>
+		</div>
+	</div>
+
+	<div class="feedback-form">
+		<form action="" method="POST">
+			@csrf;
+			@method('@replyFeedback');
+			<input type="hidden" name="feedbackid" value="{$info->feedbackid}">
+			<label class="label-group">
+				<span>Leave a reply</span>
+				<textarea name="reply" required placeholder="Start typing.."></textarea>
+			</label>
+			<button name="process" class="btn btn-curve">Submit</button>
+		</form>
+	</div>
+</div>

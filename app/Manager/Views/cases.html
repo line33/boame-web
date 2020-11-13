@@ -1,0 +1,146 @@
+<section class="page-intro">
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Cases</a></span>
+    <h1 class="heading-text">Cases Reported</h1>
+</section>
+
+<div class="page-wrapper-group cases">
+
+	<div class="stats-box-wrapper">
+
+		<a href="javascript:void(0)" data-target="audios">
+			<div class="stats-box">
+				<h1>{$overview->audio->total}</h1>
+				<span class="stats-box-title">Audio{$overview->audio->total > 1 ? 's' : ''}</span>
+				<span class="stats-box-alert">{$overview->audio->today > 0 ? '+' . $overview->audio->today : 0} today</span>
+			</div>
+		</a>
+
+		<a href="javascript:void(0)" data-target="videos">
+			<div class="stats-box">
+				<h1>{$overview->video->total}</h1>
+				<span class="stats-box-title">Video{$overview->video->total > 1 ? 's' : ''}</span>
+				<span class="stats-box-alert">{$overview->video->today > 0 ? '+' . $overview->video->today : 0} today</span>
+			</div>
+		</a>
+
+		<a href="javascript:void(0)" data-target="text-cases">
+			<div class="stats-box">
+				<h1>{$overview->text->total}</h1>
+				<span class="stats-box-title">Text Case{$overview->text->total > 1 ? 's' : ''}</span>
+				<span class="stats-box-alert">{$overview->text->today > 0 ? '+' . $overview->text->today : 0} today</span>
+			</div>
+		</a>
+		
+	</div> 
+
+	<!-- page tabs -->
+	<section class="page-tabs" data-init="fetchCases">
+		<div class="tabs">
+			<ul class="tab-list">
+				<li class="active" data-target="audios">
+					Audios
+				</li>
+
+				<li data-target="videos">
+					Videos
+				</li>
+
+				<li data-target="text-cases">
+					Text Cases
+				</li>
+			</ul>
+		</div>
+
+		<!-- tab container -->
+		<div class="tab-container">
+			<div class="tab active" data-tab="audios">
+				<table class="table" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Audio</th>
+							<th>Reporter</th>
+							<th>Date Submitted</th>
+							<th>Case Comment</th>
+							<th>Assigned</th>
+							<th></th>
+						</tr>
+					</thead>
+
+					<tbody data-jar="audios">
+
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab" data-tab="videos">
+				<table class="table" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Video</th>
+							<th>Reporter</th>
+							<th>Date Submitted</th>
+							<th>Case Comment</th>
+							<th>Assigned</th>
+							<th></th>
+						</tr>
+					</thead>
+
+					<tbody data-jar="videos">
+
+					</tbody>
+				</table>
+			</div>
+
+			<div class="tab" data-tab="text-cases">
+				<table class="table" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Reporter</th>
+							<th>Date Submitted</th>
+							<th>Case Comment</th>
+							<th>Assigned</th>
+							<th></th>
+						</tr>
+					</thead>
+
+					<tbody data-jar="text-cases">
+
+					</tbody>
+				</table>
+			</div>
+
+			<!-- preloader for this section -->
+			<div class="section-preloader">
+				<img $src="spinner-test4.gif"/>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+<!-- video modal -->
+<div class="video-modal">
+
+	<!-- video container -->
+	<div class="video-modal-container">
+
+		<!-- close button -->
+		<span class="close-button">
+			<img $src="close-times-black.svg"/>
+		</span>
+
+		<!-- video -->
+		<video controls="yes" preload="yes">
+
+		</video>
+
+	</div>
+</div>
+
+<!-- refresh panel -->
+<div class="refresh-panel">
+	<a href="">
+		<img $src="reload.svg"/>
+		<span>Click here to reload</span>
+	</a>
+</div>

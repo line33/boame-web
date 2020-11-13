@@ -1,0 +1,59 @@
+<!-- add counselor form starts here -->
+<div class="add-counselor">
+    <form class="content-form" action="" method="POST" enctype="multipart/form-data">
+        <?=\Happy\Directives::runDirective(true,'csrf')?>
+        <?=\Happy\Directives::runDirective(true,'method','@addCounselor')?>
+        <label for="firstname" class="form-group">
+            <span>Firstname</span>
+            <input id="firstname" type="text" class="input-line" name="firstname" value="<?=\Happy\Directives::runDirective(true,'post','firstname')?>" required/>
+        </label>
+
+        <label for="lastname" class="form-group">
+            <span>Lastname</span>
+            <input id="lastname" type="text" class="input-line" name="lastname" value="<?=\Happy\Directives::runDirective(true,'post','lastname')?>" required/>
+        </label>
+    
+        <label for="email_address" class="form-group">
+            <span>Email Address</span>
+            <input id="email_address" type="email" class="input-line" name="email" value="<?=\Happy\Directives::runDirective(true,'post','email')?>" required/>
+        </label>
+
+        <label for="gender" class="form-group">
+            <?php $genders = ['male', 'female'];?>
+            <select class="input-line" name="gender" id="gender" required>
+                <option value="">Please select a gender</option>
+                <?php foreach ($genders as $gender) { ?>
+                    <option value="<?=$gender?>"><?=ucfirst($gender)?></option>
+                <?php } ?>
+            </select>
+        </label>
+
+        <label for="telephone" class="form-group">
+            <span>Telephone</span>
+            <input id="telephone" type="tel" class="input-line" name="telephone" value="<?=\Happy\Directives::runDirective(true,'post','telephone')?>" required/>
+        </label>
+
+        <label for="password" class="form-group">
+            <span>Password</span>
+            <input id="password" type="password" class="input-line" name="password" required minlength="4"/>
+        </label>
+
+        <label for="password" class="form-group">
+            <span>Password Again</span>
+            <input id="password" type="password" class="input-line" name="password_again" required minlength="4"/>
+        </label>
+        
+        <label for="display_image">
+            <span>Display Image</span>
+            <input type="file" name="display_image" id="display_image" style="display: none;" required/>
+            <div class="select-box">
+                <img src="<?=assets_image("add-gray.svg")?>"/>
+                <span>Click here to attach image</span>
+            </div>
+        </label>
+        
+    
+        <button class="btn" type="submit">Create</button>
+    </form>
+</div>
+<!-- end add counselor form -->

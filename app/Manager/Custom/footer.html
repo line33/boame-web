@@ -1,0 +1,136 @@
+</div>
+<!-- sticky menu button -->
+<div class="sticky-menu">
+    <div class="menu" data-target="menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+</div>
+
+<div class="page-container-menu">
+<!-- menu -->
+<div class="main-menu">
+    <div class="main-menu-list">
+
+        <a class="menu-list" $href="manager">
+            <div class="menu-icon">
+                <img $src="home-thin.svg"/>
+            </div>
+            <div class="menu-text">Dashboard</div>
+        </a>
+
+        <a class="menu-list" $href="manager/cases">
+            <div class="menu-icon">
+                <img $src="cases.svg"/>
+            </div>
+            <div class="menu-text">Cases</div>
+        </a>
+
+        <a class="menu-list" $href="manager/volunteers">
+            <div class="menu-icon">
+                <img $src="volunteer.svg"/>
+            </div>
+            <div class="menu-text">Volunteers</div>
+        </a>
+
+        <a class="menu-list" $href="manager/counselors">
+            <div class="menu-icon">
+                <img $src="counselor.svg"/>
+            </div>
+            <div class="menu-text">Counselors</div>
+        </a>
+
+        <a class="menu-list" $href="manager/reporters">
+            <div class="menu-icon">
+                <img $src="reporter.svg"/>
+            </div>
+            <div class="menu-text">Reporters</div>
+        </a>
+
+        <a class="menu-list" $href="manager/library">
+            <div class="menu-icon">
+                <img $src="knowledge-center.svg"/>
+            </div>
+            <div class="menu-text">Knowledge Center</div>
+        </a>
+
+        <a class="menu-list" $href="manager/administrators">
+            <div class="menu-icon">
+                <img $src="administrator.svg"/>
+            </div>
+            <div class="menu-text">Administrators</div>
+        </a>
+
+        <a class="menu-list" $href="manager/statistics">
+            <div class="menu-icon">
+                <img $src="statistics2.svg"/>
+            </div>
+            <div class="menu-text">Statistics</div>
+        </a>
+
+        <a class="menu-list" $href="manager/feedbacks">
+            <div class="menu-icon">
+                <img $src="envelope.svg"/>
+            </div>
+            <div class="menu-text">Feedbacks</div>
+        </a>
+
+
+    </div>
+</div>
+
+<!-- menu footer -->
+<p>{date('Y')} (c) copyright BOAME project. Powered by WekiWork Lab.</p>
+</div>
+</div>
+
+<!-- delete modal -->
+<div class="delete-modal">
+    <div class="delete-modal-inner">
+        <form action="" method="POST">
+            @csrf;
+            @method('delete');
+            <header>
+                <h2>You are about to delete a record</h2>
+            </header>
+            <section class="body">
+                <p>To continue, please enter <b>'DELETE'</b> in the text field below and click proceed.</p>
+                <input type="text" name="action" placeholder="Enter DELETE here"/>
+                <section class="input-elements"></section>
+            </section>
+            <footer class="footer">
+                <button type="submit" class="delete">Proceed</button>
+                <button type="button" class="cancel">Cancel</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<!-- notification -->
+<audio id="notification">
+    <source src="@link(assets_media('notification/swiftly-610.mp3'));" class="default" type="audio/mp3">
+    <source src="@link(assets_media('notification/swiftly-610.m4r'));" type="audio/mp4">
+    <source src="@link(assets_media('notification/swiftly-610.ogg'));" type="audio/ogg">
+</audio>
+
+<!-- slide right popup -->
+<a class="slide-right-popup" data-href="{func()->url()}" href="javascript:void(0)">
+    <div class="image-box">
+        <img $src="alarm-1.svg"/>
+    </div>
+    <div class="text-box"></div>
+</a>
+
+<!-- load modal -->
+@partial('alert-modal');
+
+<!-- javascripts -->
+{assets()->loadJs($viewjs)}
+
+<!-- end body,html -->
+</body>
+</html>
+@setdefault;

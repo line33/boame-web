@@ -1,0 +1,55 @@
+<form action="" method="POST" class="form-wrapper-container" enctype="multipart/form-data">
+	@csrf;
+	@method('@updateProfile');
+	<section class="page-intro">
+		<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Profile</a></span>
+		<h1 class="heading-text">@info('lastname', 'ucfirst'); @info('firstname', 'ucfirst');</h1>
+	</section>
+	
+	<section class="form-tabs">
+		<div class="content-area profile-container">
+			<div class="box-group">
+				<label for="firstname" class="form-group">
+					<span>Firstname</span>
+					<input id="firstname" type="text" class="input-line" minlength="2" name="firstname" value="@info('firstname');" required/>
+				</label>
+
+				<label for="lastname" class="form-group">
+					<span>Lastname</span>
+					<input id="lastname" type="text" class="input-line" minlength="2" name="lastname" value="@info('lastname');" required/>
+				</label>
+			</div>
+
+			<label for="email" class="form-group mgb-30">
+				<span>Email</span>
+				<input id="email" type="email" class="input-line" value="@info('email');" readonly/>
+			</label>
+
+			<div class="box-group">
+				<label for="telephone" class="form-group">
+					<span>Telephone</span>
+					<input id="telephone" type="tel" class="input-line" value="@info('telephone');" readonly/>
+				</label>
+
+				<label for="accounttype" class="form-group">
+					<span>Account Type</span>
+					<input id="accounttype" type="text" class="input-line" value="{$accountType}" readonly/>
+				</label>
+			</div>
+
+		</div>
+		{$bgImage = @@info('display_image', 'fromStorage');}
+		<label class="form-select-area" for="select_box" $background-image="$bgImage">
+			<span class="form-type">
+				<img $src="picture.svg"/>
+			</span>
+			<h2 data-change=""></h2>
+			<input type="file" name="display_image" accept=".jpg,.jepg,.png,.gif" id="select_box" style="display: none;"/>
+		</label>
+	</section>
+	
+	<!-- submit button -->
+	<button class="btn" type="submit">Update</button>
+	
+	</form>
+	

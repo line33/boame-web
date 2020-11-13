@@ -1,0 +1,40 @@
+<section class="page-intro">
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Feedbacks</a></span>
+    <h1 class="heading-text">Feedbacks</h1>
+</section>
+
+<div class="table-container reporters">
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Fullname</th>
+				<th>Email Address</th>
+				<th>Feedback</th>
+				<th>Date Submitted</th>
+				<th>Replied by</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@if ($data->status == 'success')
+				@foreach ($data->feedbacks as $feedback)
+				<tr data-href="@link('feedback/'.$feedback->feedbackid);">
+					<td>{ucwords($feedback->fullname)}</td>
+					<td>{$feedback->email}</td>
+					<td>
+						<p class="multiline-text">{ucfirst($feedback->feedback)}</p>
+					</td>
+					<td>{date('Y-m-d g:i a', $feedback->date_created)}</td>
+					<td>{($feedback->last_reply == '' ? 'N/A' : $feedback->last_reply)}</td>
+					<td>
+						<div class="table-controls">
+							<a href="@link('feedback/'.$feedback->feedbackid);" class="cir-btn edit"></a>
+						</div>
+					</td>
+				</tr>
+				@endforeach
+			@endif
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,29 @@
+<form action="" method="POST" class="form-wrapper-container" enctype="multipart/form-data">
+@csrf;
+@method('@addArticle');
+<section class="page-intro">
+	<a class="arrow-back" href="@link('manager/library');">
+		<img $src="arrow-left-black.svg"/>
+	</a>
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="@link('manager/library');">Knowledge Center</a>/<a href="">Add Article</a></span>
+	<h1 class="heading-text create-input-title" data-input-name="article_title" contentEditable="true">Enter the name of your article</h1>
+	<input type="hidden" name="article_title" value="@post('article_title');" required/>
+</section>
+
+<section class="form-tabs">
+	<div class="content-area" id="editorContainer">
+		<textarea class="summernote" name="text_area" style="opacity: 0;">@post('text_area');</textarea>
+	</div>
+	<label class="form-select-area" for="select_box">
+		<span class="form-type">
+			<img $src="picture.svg"/>
+		</span>
+		<h2 data-change="">Click here to add a cover image</h2>
+		<input type="file" name="article_image" accept=".jpg,.jepg,.png,.gif" id="select_box" style="display: none;"/>
+	</label>
+</section>
+
+<!-- submit button -->
+<button class="btn" type="submit">Create</button>
+
+</form>

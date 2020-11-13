@@ -1,0 +1,135 @@
+
+	<section class="page-intro">
+		<a class="arrow-back" href="{$history}">
+			<img $src="arrow-left-black.svg"/>
+		</a>
+		<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Account Summary</a></span>
+		<h1 class="heading-text">Overview</h1>
+	</section>
+	
+	<section class="form-tabs">
+		<div class="content-area profile-container">
+
+			<div class="box-group">
+				<label for="firstname" class="form-group">
+					<span>Firstname</span>
+					<input id="firstname" readonly class="input-line" value="{$account->firstname}" required/>
+				</label>
+
+				<label for="lastname" class="form-group">
+					<span>Lastname</span>
+					<input id="lastname" readonly class="input-line" value="{$account->lastname}" required/>
+				</label>
+			</div>
+
+			<label for="email" class="form-group mgb-30">
+				<span>Email</span>
+				<a href="mailto:{$account->email}" class="input-line" style="width: 100%; display: block;" id="email">{$account->email}</a>
+			</label>
+
+			<div class="box-group">
+				<label for="telephone" class="form-group">
+					<span>Telephone</span>
+					<a href="tel:{$account->telephone}" class="input-line" style="width: 100%; display: block;" id="telephone">{$account->telephone}</a>
+				</label>
+
+				<label for="reportedCases" class="form-group">
+					<span>Account Type</span>
+					<input id="reportedCases" type="text" class="input-line" value="{$account->accountType}" readonly/>
+				</label>
+			</div>
+
+			<div class="cases-reported-overview">
+				<h2>Cases Reported</h2>
+
+				<!-- page tabs -->
+				<section class="page-tabs" data-init="fetchCases">
+					<div class="tabs">
+						<ul class="tab-list">
+							<li class="active" data-target="audios">
+								Audios
+							</li>
+
+							<li data-target="videos">
+								Videos
+							</li>
+
+							<li data-target="text-cases">
+								Text Cases
+							</li>
+						</ul>
+					</div>
+
+					<!-- tab container -->
+					<div class="tab-container">
+						<div class="tab active" data-tab="audios">
+							<table class="table" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Audio</th>
+										<th>Reporter</th>
+										<th>Date Submitted</th>
+										<th>Case Comment</th>
+										<th>Assigned</th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody data-jar="audios">
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="tab" data-tab="videos">
+							<table class="table" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Video</th>
+										<th>Reporter</th>
+										<th>Date Submitted</th>
+										<th>Case Comment</th>
+										<th>Assigned</th>
+										<th></th>
+									</tr>
+								</thead>
+			
+								<tbody data-jar="videos">
+			
+								</tbody>
+							</table>
+						</div>
+			
+						<div class="tab" data-tab="text-cases">
+							<table class="table" cellspacing="0">
+								<thead>
+									<tr>
+										<th>Reporter</th>
+										<th>Date Submitted</th>
+										<th>Case Comment</th>
+										<th>Assigned</th>
+										<th></th>
+									</tr>
+								</thead>
+			
+								<tbody data-jar="text-cases">
+			
+								</tbody>
+							</table>
+						</div>
+
+						<!-- preloader for this section -->
+						<div class="section-preloader">
+							<img $src="spinner-test4.gif"/>
+						</div>
+					</div>
+				</section>
+			</div>
+
+		</div>
+		{$bgImage = fromStorage($account->display_image);}
+		<label class="form-select-area" for="select_box" $background-image="$bgImage">
+			<h2 data-change=""></h2>
+		</label>
+	</section>
+	

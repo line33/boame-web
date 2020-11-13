@@ -1,0 +1,19 @@
+{
+    "stylesheet": [
+        "moorexa.css",
+        "style.css"
+    ],
+
+    "stylesheet@bundle" : [
+
+    ],
+    
+    "scripts": [
+        "axios.min.js",
+        "main.js"
+    ],
+
+    "scripts@bundle" : [
+        
+    ]
+}

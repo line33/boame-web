@@ -1,0 +1,98 @@
+
+	<section class="page-intro">
+		<a class="arrow-back" $href="manager/counselors">
+			<img $src="arrow-left-black.svg"/>
+		</a>
+		<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="@link('manager/counselors');">Counselors</a></span>
+		<h1 class="heading-text">Overview</h1>
+	</section>
+	
+	<section class="form-tabs">
+		<div class="content-area profile-container">
+
+			<div class="box-group">
+				<label for="firstname" class="form-group">
+					<span>Firstname</span>
+					<input id="firstname" readonly class="input-line" value="{$data->account->firstname}" required/>
+				</label>
+
+				<label for="lastname" class="form-group">
+					<span>Lastname</span>
+					<input id="lastname" readonly class="input-line" value="{$data->account->lastname}" required/>
+				</label>
+			</div>
+
+			<div class="box-group">
+				<label for="email" class="form-group">
+					<span>Email</span>
+					<a href="mailto:{$data->account->email}" class="input-line" style="width: 100%; display: block;" id="email">{$data->account->email}</a>
+				</label>
+
+				<label for="gender" class="form-group">
+					<span>Gender</span>
+					<input class="input-line" readonly id="gender" value="{ucfirst($data->account->gender)}">
+				</label>
+
+			</div>
+
+			<div class="box-group">
+				<label for="telephone" class="form-group">
+					<span>Telephone</span>
+					<a href="tel:{$data->account->telephone}" class="input-line" style="width: 100%; display: block;" id="telephone">{$data->account->telephone}</a>
+				</label>
+
+				<label for="reportedCases" class="form-group">
+					<span>Account Type</span>
+					<input id="reportedCases" type="text" class="input-line" value="Counselor" readonly/>
+				</label>
+			</div>
+
+
+			<div class="cases-reported-overview">
+				<h2>Cases Assigned ({($info->status == 'success') ? count($info->cases) : '0' }) </h2>
+
+				<div class="tab-container">
+					<table class="table" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Case Type</th>
+								<th>Reporter</th>
+								<th>Date Assigned</th>
+								<th>Case Comment</th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							@if ($info->status == 'success')
+								@foreach ($info->cases as $case)
+									{$link = 'manager/'.strtolower($case->caseType).'-case/'.$case->casesreportedid.'?history=counselor/'.$data->account->accountid;}
+									<tr data-href="@link($link);">
+										<td>{ucfirst($case->caseType)}</td>
+										<td>{$case->reporter == null ? 'Anonnymus' : ucwords($case->reporter->lastname . ' ' . $case->reporter->firstname)}</td>
+										<td>{date('Y-m-d g:i a', $case->date_modified)}</td>
+										<td>
+											<p class="multiline-text">{ucfirst($case->case_text)}</p>
+										</td>
+										<td>
+											<div class="table-controls">
+												<a class="view-btn" href="@link($link);">
+													<img $src="view.svg"/>
+												</a>
+											</div>
+										</td>
+									</tr>
+								@endforeach
+							@endif
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+		{$bgImage = fromStorage($data->account->display_image);}
+		<label class="form-select-area" for="select_box" $background-image="$bgImage">
+			<h2 data-change=""></h2>
+		</label>
+	</section>
+	

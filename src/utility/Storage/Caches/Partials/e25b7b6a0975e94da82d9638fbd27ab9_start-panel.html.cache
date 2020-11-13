@@ -1,0 +1,9 @@
+<!-- panel -->
+<div class="panel-modal">
+    <div class="panel-controls">
+        <span class="close-btn"><img src="<?=assets_image("close-times-small.svg")?>"/></span>
+        <span class="minimize-btn"><img src="<?=assets_image("minimize-small.svg")?>"/></span>
+        <span class="expand-btn"><img src="<?=assets_image("add-white.svg")?>"/></span>
+    </div>
+
+    <div class="panel-body">

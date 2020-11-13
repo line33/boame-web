@@ -1,0 +1,100 @@
+<section class="page-intro">
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Statistics</a></span>
+    <h1 class="heading-text">Statistics</h1>
+</section>
+
+<!-- filter section -->
+<form action="" method="POST">
+	@csrf;
+	<section class="filter-section">
+		<h2 class="section-title">Show statistics from?</h2>
+		<div class="filter-boxes">
+
+			<div class="filter-box">
+				<span>Start *</span>
+				<input type="date" placeholder="Choose date" name="start_date" required value="@post('start_date');"/>
+			</div>
+
+			<div class="filter-box">
+				<span>End *</span>
+				<input type="date" placeholder="Choose end date" name="end_date" required value="@post('end_date');"/>
+			</div>
+
+			<button name="generate" type="submit" class="btn">Generate</button>
+
+		</div>
+	</section>
+</form>
+
+<!-- App usage -->
+<section class="table-section">
+	<h2>App Usuage</h2>
+	<div class="table-container">
+		<table class="table" cellspacing="0">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Monday</th>
+					<th>Tuesday</th>
+					<th>Wednesday</th>
+					<th>Thursday</th>
+					<th>Friday</th>
+					<th>Saturday</th>
+					<th>Sunday</th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				@foreach ($data->usage as $year => $months)
+				<tr>
+					<td colspan="8" style="background: rgba(51, 112, 163, 0.08); color: #000;">Year ({$year})</td>
+				</tr>
+					@foreach ($months as $month => $days)
+					<tr>
+						<td>{$month}</td>
+						<td>{$days->monday}</td>
+						<td>{$days->tuesday}</td>
+						<td>{$days->wednesday}</td>
+						<td>{$days->thursday}</td>
+						<td>{$days->friday}</td>
+						<td>{$days->saturday}</td>
+						<td>{$days->sunday}</td>
+					</tr>
+					@endforeach
+				@endforeach
+
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<!-- Services Requested -->
+<section class="table-section">
+	<h2>Services Requested</h2>
+	<div class="table-container">
+		<table class="table" cellspacing="0">
+			<thead>
+				<tr>
+					<th class="text-left">Service</th>
+					<th>Annonymus</th>
+					<th>Male</th>
+					<th>Female</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{$services = getServices($data);}
+				@foreach ($services as $service)
+				<tr>
+					<td class="text-left">{ucwords($service['service'])}</td>
+					<td>{$service['other']}</td>
+					<td>{$service['male']}</td>
+					<td>{$service['female']}</td>
+					<td>{$service['total']}</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
+</section>

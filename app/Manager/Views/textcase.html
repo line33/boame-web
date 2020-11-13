@@ -1,0 +1,101 @@
+<section class="page-intro">
+	{$link = get()->has('history') ? get()->history : 'manager/cases?tab=text-cases';}
+	<a class="arrow-back" $href="$link">
+		<img $src="arrow-left-black.svg"/>
+	</a>
+	<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="@link('manager/cases');">Cases</a>/<a href="">Text</a></span>
+	<h1 class="heading-text">Text Case</h1>
+</section>
+
+<!-- content divider -->
+<section class="media-page-content-divider">
+	<!-- load images -->
+	<div class="media-images">
+		@foreach($case->uploads as $upload)
+			<div class="media-image">
+				<img src="{fromStorage($upload->image_address)}"/>
+			</div>
+		@endforeach
+	</div>
+
+	<div class="media-content-section">
+		<ul>
+			<li>
+				<span class="title">Date Submitted</span>
+				<p class="text">{date('Y-m-d g:i:s a', $case->date_created)}</p>
+			</li>
+
+			<li>
+				<span class="title">Comment</span>
+				<p class="text">
+					{ucfirst($case->case_text)}
+				</p>
+			</li>
+
+			<li>
+				<span class="title">Assigned</span>
+				<p class="text">
+					<span class="table-badge pending" php-if="$case->assigned_to == '0'">no</span>
+					<span class="table-badge approved" php-if="$case->assigned_to != '0'">yes</span>
+				</p>
+			</li>
+
+			<li>
+				<span class="title">Reported by</span>
+				<p class="text" php-if="!isset($case->account)">Anonnymus</p>
+				<p class="text" php-if="isset($case->account)">
+					<a href="@link('manager/account-overview/'.$case->account->accountid.'/?history=manager/video-case/'.$case->casesreportedid);" class="link">{ucwords($case->account->lastname . ' ' . $case->account->firstname)}</a>
+				</p>
+			</li>
+
+			<li php-if="$case->assigned_to != '0'">
+				<span class="title">Assigned to</span>
+				<p class="text">
+					<a href="@link('manager/account-overview/'.$case->assignee->accountid.'/?history=manager/video-case/'.$case->casesreportedid);" class="link">{ucwords($case->assignee->lastname . ' ' . $case->assignee->firstname)}</a>
+				</p>
+			</li>
+
+			<li php-if="$case->assigned_to == '0'" data-init="assignCase">
+
+				<form action="" method="POST" class="assign-form">
+					@csrf;
+					@method('@assignCase');
+					<input type="hidden" name="assign_to" required/>
+					<span class="title">Assigned to</span>
+					<div class="assign-case">
+						<span class="text">Click here to assign</span>
+					</div>
+					<button class="btn" style="display: none; margin-top: 20px;" type="submit">Assign</button>
+				</form>
+
+				<!-- assign modal -->
+				<div class="assign-modal">
+					<div class="container">
+						<h2 class="heading-text">Assign to</h2>
+						{$case->account = (!isset($case->account) ? (object) ['accountid' => 0] : $case->account);}
+						@if ($accounts->status == 'success')
+						<div php-if::class="(count($accounts->accounts) < 24 ? 'account-lists' : 'account-lists include-scroll')">
+							@foreach ($accounts->accounts as $account)
+								@if ($account->accountid != $case->account->accountid)
+									<div class="account-box" data-accountid="{$account->accountid}">
+										<div class="image-box">
+											<img src="{fromStorage($account->display_image)}"/>
+										</div>
+										<div class="account-info">
+											<h2>{ucwords($account->lastname . ' ' . $account->firstname)}</h2>
+											<span class="caption">{ucfirst($account->accountType)}</span>
+										</div>
+									</div>
+								@endif
+							@endforeach
+						</div>
+						@endif
+					</div>
+				</div>
+			</li>
+
+
+		</ul>
+	</div>
+
+</section>

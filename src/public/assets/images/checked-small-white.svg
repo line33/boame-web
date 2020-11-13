@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="20px" viewBox="0 0 28 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>checked</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Boame-Web-app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Volunteers" transform="translate(-1978.000000, -803.000000)" fill="#FFFFFF">
+            <g id="checked" transform="translate(1978.000000, 803.000000)">
+                <path d="M10.375,19.781 C10.559,19.928 10.78,20 11,20 C11.276,20 11.551,19.886 11.748,19.664 L27.748,1.664 C28.115,1.252 28.078,0.619 27.665,0.253 C27.251,-0.115 26.62,-0.077 26.253,0.336 L10.884,17.626 L1.625,10.219 C1.195,9.874 0.564,9.946 0.22,10.375 C-0.125,10.807 -0.055,11.436 0.376,11.781 L10.375,19.781 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

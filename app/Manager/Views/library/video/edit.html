@@ -1,0 +1,35 @@
+<form action="" method="POST" class="form-wrapper-container" enctype="multipart/form-data">
+	@csrf;
+	@method('@editVideo');
+	<section class="page-intro">
+		<a class="arrow-back" href="@link('manager/library?tab=videos');">
+			<img $src="arrow-left-black.svg"/>
+		</a>
+		<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="@link('manager/library');">Knowledge Center</a>/<a href="">EditVideo</a></span>
+		<h1 class="heading-text create-input-title" data-input-name="video_title" contentEditable="true">Enter a title for your video</h1>
+		<input type="hidden" name="video_title" value="@post('video_title');" required/>
+	</section>
+	
+	<section class="form-tabs">
+		<div class="content-area" id="editorContainer">
+			<textarea class="summernote" name="text_area" style="opacity: 0;">@post('text_area');</textarea>
+		</div>
+		<label class="form-select-area" for="select_box">
+			<span class="form-type">
+				<img $src="video-player-2.svg"/>
+			</span>
+			@if (isset($video))
+				<video controls class="video-preview-container" poster="{fromStorage($video->video_frame_address)}">
+					<source src="{fromStorage($video->video_address)}" type="video/mp4"/>
+				</video>
+			@endif
+			<h2 data-change="">{!isset($video) ? 'Click here to add a video' : ''}</h2>
+			<input type="file" name="video" accept=".mp4,.3gp,.mpeg,.mp4a,.mpv" id="select_box" style="display: none;"/>
+		</label>
+	</section>
+	
+	<!-- submit button -->
+	<button class="btn" type="submit">Update</button>
+	
+</form>
+	

@@ -1,0 +1,54 @@
+<section class="page-intro">
+    <span class="sub-title">Welcome @info('lastname', 'ucfirst');!</span>
+    <h1 class="heading-text">Overview</h1>
+</section>
+
+<div class="page-wrapper-group">
+
+    <div class="stats-box-wrapper">
+        <a $href="manager/cases">
+            <div class="stats-box">
+                <h1 data-target="case-counter">{$statistic->cases->total}</h1>
+                <span class="stats-box-title case-title">Reported Case{$statistic->cases->total > 1 ? 's' : ''}</span>
+                <span class="stats-box-alert" data-target="case-today">{$statistic->cases->today > 0 ? '+' . $statistic->cases->today : 0} today</span>
+            </div>
+        </a>
+
+        <a $href="manager/feedbacks">
+            <div class="stats-box">
+                <h1>{$statistic->feedbacks->total}</h1>
+                <span class="stats-box-title">Feedback{$statistic->feedbacks->total > 1 ? 's' : ''}</span>
+                <span class="stats-box-alert">{$statistic->feedbacks->today > 0 ? '+' . $statistic->feedbacks->today : 0} today</span>
+            </div>
+        </a>
+
+        <a $href="manager/reporters">
+            <div class="stats-box">
+                <h1>{$statistic->reporters->total}</h1>
+                <span class="stats-box-title">Reporter{$statistic->reporters->total > 1 ? 's' : ''}</span>
+                <span class="stats-box-alert">0 chatting</span>
+            </div>
+        </a>
+
+        <a $href="manager/counselors">
+            <div class="stats-box">
+                <h1>{$statistic->counselors->total}</h1>
+                <span class="stats-box-title">Counselor{$statistic->counselors->total > 1 ? 's' : ''}</span>
+                <span class="stats-box-alert">{$statistic->counselors->today > 0 ? '+' . $statistic->counselors->today : 0} today</span>
+            </div>
+        </a>
+
+        <a $href="manager/volunteers">
+            <div class="stats-box">
+                <h1>{$statistic->volunteers->total}</h1>
+                <span class="stats-box-title">Volunteer{$statistic->volunteers->total > 1 ? 's' : ''}</span>
+                <span class="stats-box-alert">{$statistic->volunteers->today > 0 ? '+' . $statistic->volunteers->today : 0} today</span>
+            </div>
+        </a>
+    </div>  
+
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+</div>

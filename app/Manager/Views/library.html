@@ -1,0 +1,132 @@
+<section class="page-intro">
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Knowledge Center</a></span>
+    <h1 class="heading-text">Knowledge Center</h1>
+</section>
+
+<div class="page-wrapper-group cases">
+
+	<div class="stats-box-wrapper">
+
+		<a href="javascript:void(0)" data-target="articles">
+			<div class="stats-box">
+				<h1>{$stats->articles}</h1>
+				<span class="stats-box-title">Article{$stats->articles > 1 ? 's' : ''}</span>
+				<span class="stats-box-alert">{$stats->articles_today > 0 ? '+' . $stats->articles_today : 0} today</span>
+			</div>
+		</a>
+
+		<a href="javascript:void(0)" data-target="videos">
+			<div class="stats-box">
+				<h1>{$stats->videos}</h1>
+				<span class="stats-box-title">Video{$stats->videos > 1 ? 's' : ''}</span>
+				<span class="stats-box-alert">{$stats->videos_today > 0 ? '+' . $stats->videos_today : 0} today</span>
+			</div>
+		</a>
+
+		<a href="javascript:void(0)">
+			<div class="stats-box">
+				<h1>{$stats->views}</h1>
+				<span class="stats-box-title">View{$stats->views > 1 ? 's' : ''}</span>
+			</div>
+		</a>
+		
+	</div> 
+
+	<!-- page tabs -->
+	<section class="page-tabs">
+		<div class="tabs">
+			<ul class="tab-list">
+				<li class="active" data-target="articles">
+					Articles
+				</li>
+
+				<li data-target="videos">
+					Videos
+				</li>
+
+				<li>
+					<a href="@view('article/create');">Add an article</a>
+				</li>
+
+				<li>
+					<a href="@view('video/create');">Add a video</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- tab container -->
+		<div class="tab-container">
+			<div class="tab active" data-tab="articles">
+				<div class="articles-container">
+					@if ($articles->status == 'success')
+						@foreach ($articles->articles as $article)
+							<div class="article-box">
+								<a href="@view('article/edit/'.$article->articleid);">
+									<div class="image-wrapper">
+										<img src="{fromStorage($article->article_cover_image)}"/>
+									</div>
+
+									<div class="article-body">
+										<h2>{ucwords($article->article_title)}</h2>
+										<div class="video-activities">
+											<div class="video-activity">
+												<img $src="view2.svg"/>
+												<span class="text">{$article->total_views}</span>
+											</div>
+										</div>
+										<p>{substr(strip_tags($article->article_text), 0, 80)}..</p>
+										<a href="" data-input='{getArticleJson($article)}' data-method="@deleteArticle" class="cir-btn" data-modal="delete">
+											<img $src="trash-bold-big.svg"/>
+										</a>
+									</div>
+								</a>
+							</div>
+						@endforeach
+					@endif
+				</div>
+			</div>
+
+			<div class="tab" data-tab="videos">
+				<div class="articles-container">
+					@if ($videos->status == 'success')
+						@foreach ($videos->videos as $video)
+							<div class="article-box">
+								<a href="@view('video/edit/'.$video->videospublishedid);">
+									<div class="image-wrapper">
+										<video controls muted poster="{fromStorage($video->attachment->video_frame_address)}">
+											<source src="{fromStorage($video->attachment->video_address)}" type="video/mp4"/>
+										</video>
+									</div>
+									<div class="article-body">
+										<h2>{ucwords($video->video_title)}</h2>
+										<div class="video-activities">
+											<div class="video-activity">
+												<img $src="view2.svg"/>
+												<span class="text">{$video->attachment->total_views}</span>
+											</div>
+
+											<div class="video-activity">
+												<img $src="like.svg"/>
+												<span class="text">{$video->attachment->total_likes}</span>
+											</div>
+
+											<div class="video-activity">
+												<img $src="dislike.svg"/>
+												<span class="text">{$video->attachment->total_dislikes}</span>
+											</div>
+										</div>
+										<p>{substr(strip_tags($video->attachment->video_caption), 0, 80)}..</p>
+										<a href="" data-input='{getVideoJson($video)}' data-method="@deleteVideo" class="cir-btn" data-modal="delete">
+											<img $src="trash-bold-big.svg"/>
+										</a>
+									</div>
+								</a>
+							</div>
+						@endforeach
+					@endif
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>

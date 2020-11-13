@@ -1,0 +1,71 @@
+<!-- add administrator form starts here -->
+<div class="add-administrator">
+    <form class="content-form" action="" method="POST" enctype="multipart/form-data">
+        @csrf;
+        @method('@addSuperUser')
+        <label for="firstname" class="form-group">
+            <span>Firstname</span>
+            <input id="firstname" type="text" class="input-line" name="firstname" value="@post('firstname');" required/>
+        </label>
+
+        <label for="lastname" class="form-group">
+            <span>Lastname</span>
+            <input id="lastname" type="text" class="input-line" name="lastname" value="@post('lastname');" required/>
+        </label>
+
+        <label for="telephone" class="form-group">
+            <span>Telephone</span>
+            <input id="telephone" type="tel" class="input-line" name="telephone" value="@post('telephone');" required/>
+        </label>
+    
+        <label for="email_address" class="form-group">
+            <span>Email Address</span>
+            <input id="email_address" type="email" class="input-line" name="email" value="@post('email');" required/>
+        </label>
+
+        <label for="gender" class="form-group">
+            {$genders = ['male', 'female'];}
+            <select class="input-line" name="gender" id="gender" required>
+                <option value="">Please select a gender</option>
+                @foreach ($genders as $gender)
+                    <option value="{$gender}">{ucfirst($gender)}</option>
+                @endforeach
+            </select>
+        </label>
+
+        <label for="password" class="form-group">
+            <span>Password</span>
+            <input id="password" type="password" class="input-line" name="password" required/>
+        </label>
+
+        <label for="password_again" class="form-group">
+            <span>Password Again</span>
+            <input id="password_again" type="password" class="input-line" name="password_again" required/>
+        </label>
+
+        <label for="position" class="form-group">
+            <span>Role</span>
+            <select class="input-line" name="position" id="position" required>
+                @foreach (app('account')->accountTypes() as $id => $accountType)
+                    <option value="{$id}">{ucwords($accountType)}</option>
+                @endforeach
+            </select>
+        </label>
+
+        <div class="image-preview" style="height: 200px; width:100%; box-shadow: 0px 0px 10px rgba(0,0,0,0.05); margin-top:20px; display: none;">
+            <img src="" style="width:100%; height:100%; object-fit:cover;"/>
+        </div>
+
+        <label for="display_image">
+            <span>Display Image</span>
+            <input type="file" accept=".jpg,.png,.jpeg" name="display_image" data-target="add-to-preview" id="display_image" style="display: none;"/>
+            <div class="select-box">
+                <img $src="add-gray.svg"/>
+                <span>Click here to attach image</span>
+            </div>
+        </label>
+    
+        <button class="btn" type="submit">Create</button>
+    </form>
+</div>
+<!-- end add administrator form -->

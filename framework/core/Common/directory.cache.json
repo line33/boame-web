@@ -1,0 +1,6 @@
+{
+    ".\/.\/framework\/source\/lab\/library\/\/FileDB===FileDBClient.php": ".\/.\/framework\/source\/lab\/library\/\/FileDB\/FileDBClient.php",
+    ".\/.\/src\/utility\/Classes\/===Engine.php": ".\/.\/src\/utility\/Classes\/\/Hyphe\/Engine.php",
+    ".\/.\/src\/utility\/Classes\/\/Happy===Directives.php": ".\/.\/src\/utility\/Classes\/\/Happy\/Directives.php",
+    ".\/.\/framework\/source\/lab\/library\/\/HttpClient===Http.php": ".\/.\/framework\/source\/lab\/library\/\/HttpClient\/Http.php"
+}

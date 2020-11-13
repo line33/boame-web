@@ -1,0 +1,63 @@
+<form action="" method="POST" class="form-wrapper-container" enctype="multipart/form-data">
+	@csrf;
+	@method('@updateSuperUserProfile');
+	<section class="page-intro">
+		<a class="arrow-back" $href="manager/administrators">
+			<img $src="arrow-left-black.svg"/>
+		</a>
+		<span class="sub-title"><a $href="manager">Dashboard</a>/<a href="@link('manager/administrators');">Administrators</a>/<a href="">Edit</a></span>
+		<h1 class="heading-text">{ucwords($data->account->lastname . ' ' . $data->account->firstname)}</h1>
+	</section>
+	
+	<section class="form-tabs">
+		<div class="content-area profile-container">
+			<div class="box-group">
+				<label for="firstname" class="form-group">
+					<span>Firstname</span>
+					<input id="firstname" type="text" class="input-line" minlength="2" name="firstname" value="{$data->account->firstname}" required/>
+				</label>
+
+				<label for="lastname" class="form-group">
+					<span>Lastname</span>
+					<input id="lastname" type="text" class="input-line" minlength="2" name="lastname" value="{$data->account->lastname}" required/>
+				</label>
+			</div>
+
+			<label for="email" class="form-group mgb-30">
+				<span>Email</span>
+				<input id="email" type="email" name="email" class="input-line" value="{$data->account->email}" required/>
+			</label>
+
+			<div class="box-group">
+				<label for="telephone" class="form-group">
+					<span>Telephone</span>
+					<input id="telephone" name="telephone" type="tel" class="input-line" value="{$data->account->telephone}" required/>
+				</label>
+
+				<label for="accounttype" class="form-group">
+					<span>Account Type</span>
+					<select name="accounttypeid" class="input-line" id="accounttype">
+						@foreach (app('account')->accountTypes() as $id => $accountType)
+							<option value="{$id}" {$id == $data->account->accounttypeid ? 'selected' : ''}>{ucwords($accountType)}</option>
+						@endforeach
+					</select>
+				</label>
+			</div>
+
+		</div>
+		{$bgImage = fromStorage($data->account->display_image);}
+		<label class="form-select-area" for="select_box" $background-image="$bgImage">
+			<span class="form-type">
+				<img $src="picture.svg"/>
+			</span>
+			<h2 data-change=""></h2>
+			<input type="file" name="display_image" accept=".jpg,.jepg,.png,.gif" id="select_box" style="display: none;"/>
+		</label>
+	</section>
+	
+	<input type="hidden" name="accountid" value="{$data->account->accountid}"/>
+	<!-- submit button -->
+	<button class="btn" type="submit">Update</button>
+	
+	</form>
+	

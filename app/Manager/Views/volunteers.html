@@ -1,0 +1,64 @@
+<section class="page-intro">
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Volunteers</a></span>
+    <h1 class="heading-text">Volunteers</h1>
+</section>
+
+<div class="table-container volunteers">
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Avatar</th>
+				<th>Fullname</th>
+				<th>Email Address</th>
+				<th>Gender</th>
+				<th>Date Applied</th>
+				<th>Application</th>
+				<th>Position</th>
+				<th>Approved by</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@if ($response->status == 'success')
+				@foreach($response->records as $record)
+					<tr data-href="@link('volunteer/'.$record->accountid);">
+						<td>
+							<div class="avatar-curve">
+								<img src="{fromStorage($record->display_image)}"/>
+							</div>
+						</td>
+						<td>{ucwords($record->lastname . ' ' . $record->firstname)}</td>
+						<td>{$record->email}</td>
+						<td>{ucfirst($record->gender)}</td>
+						<td>{date('Y-m-d g:i a', $record->information->date_created)}</td>
+						<td>
+							<span class="table-badge pending" php-if="$record->information->approved == 0">pending</span>
+							<span class="table-badge approved" php-if="$record->information->approved != 0">approved</span>
+						</td>
+						<td>{ucfirst($record->information->position)}</td>
+						<td>
+							@if ($record->information->approved == 0)
+								<form action="" method="POST">
+									@csrf;
+									@method('@approveVolunteer');
+									<input type="hidden" name="accountid" value="{$record->accountid}"/>
+									<input type="hidden" name="comment" value="No comment by me. Candidate seems fit."/>
+									<button type="submit" class="cir-btn approve-btn" title="Click here to approve volunteer"></button>
+								</form>
+							@else
+								{ucwords($record->information->approved_by_account->lastname . ' ' . $record->information->approved_by_account->firstname)}
+							@endif
+						</td>
+						<td>
+							<div class="table-controls">
+								<a href="@link('volunteer/'.$record->accountid);" class="cir-btn edit"></a>
+								<a href="" data-input='{getAccountJson($record)}' data-method="@deleteVolunteer" class="cir-btn delete" data-modal="delete"></a>
+							</div>
+						</td>
+					</tr>
+				@endforeach
+			@endif
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,40 @@
+<section class="main-wrapper">
+	<div class="image-box">
+		<img $src="child-abuse.svg"/>
+	</div>
+	<div class="content-box">
+		<div class="content-box-container">
+			<h1 class="heading-text">Administrator<br>Login</h1>
+			<p>Please proceed with your username and password.<br>
+				Click on forget password if you have forgotten.</p>
+
+			<!-- form container -->
+			<form class="content-form" action="" method="POST">
+				@csrf;
+				@method('@authenticateUser');
+				<label for="username" class="form-group">
+					<span>Your username</span>
+					<input id="username" type="text" class="input-line" minlength="4" name="username" value="@post('username');" required/>
+					@input_error('username');
+				</label>
+
+				<label for="password" class="form-group">
+					<span>Your password</span>
+					<input id="password" type="password" class="input-line" minlength="4" name="password" required/>
+				</label>
+
+				<div class="content-form-footer">
+					<label for="remember">
+						<input type="checkbox" id="remember" name="remember"/>
+						<span class="remember-text">Remember this browser</span>
+					</label>
+
+					<a $href="reset-password">Forgot password?</a>
+				</div>
+
+				<button class="btn" type="submit">Login</button>
+
+			</form>
+		</div>
+	</div>
+</section>

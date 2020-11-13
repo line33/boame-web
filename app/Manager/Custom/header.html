@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head> 
+	<title>{$package->getTitle()}</title>
+
+	<!-- meta tags -->
+	@partial('meta-tags', ['package' => $package])
+
+	<!-- link tags -->
+	<link rel="canonical" href="{func()->url($package->getUrl())}">
+
+	<!-- favicon -->
+	<link rel="icon" type="image/png" href="{$package->getIcon()}" sizes="32x32">
+	
+	<!-- css -->
+	{assets()->loadCss($viewCss)}
+	
+	<!-- default -->
+	@setdefault;
+
+	<!-- editor -->
+	@shouldPrint('editorjs');
+  
+</head>
+	
+<body>
+	
+<!-- preloader -->
+@partial('preloader');
+
+<header class="app-header">
+	<div class="container app-header-container">
+		<div class="app-header-with-logo">
+			<a $href="manager">
+				<img $src="BOAME-logo.svg" class="app-logo"/>
+			</a>
+			<form action="" method="POST" class="search-form">
+				<input type="text" name="search" placeholder="Search for anything"/>
+			</form>
+		</div>
+
+		<div class="app-header-links">
+			<ul>
+				@if (is_object($statistic))
+				<li>
+					<a $href="manager/cases">
+						Reported Cases
+						<span class="badge cases" data-target="case-counter">{$statistic->cases->today}</span>
+					</a>
+				</li>
+
+				<li>
+					<a $href="manager/feedbacks">
+						Feedbacks
+						<span class="badge feedbacks">{$statistic->feedbacks->today}</span>
+					</a>
+				</li>
+				@endif
+			</ul>
+			<div class="app-header-nav">
+				<div class="image-container">
+					<img src="@info('display_image', 'fromStorage');"/>
+				</div>
+				<div class="user-dropdown">
+					<b>@info('lastname', 'formatName');</b>
+					<span class="dropdown-button">
+						<img $src="down-arrow.svg"/>
+					</span>
+				</div>
+				<ul data-target="dropdown">
+					<li><a $href="manager/profile">Profile</a></li>
+					<li><a $href="logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="page-container">
+	<div class="page-container-section">
+		<!-- main content container -->
+		<div class="container add-spacing-top">
