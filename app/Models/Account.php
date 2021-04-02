@@ -80,6 +80,13 @@ class Account extends Model
         // fetch from gateway
         $overview = Http::get('service/statistics/overview');
 
+        // check for error
+        if ($overview->json->status == 'error') :
+
+            func()->redirect('/logout');
+
+        endif;
+
         // return object
         return $overview->json;
     }

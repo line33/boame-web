@@ -45,14 +45,18 @@
 				<li>
 					<a $href="manager/cases">
 						Reported Cases
-						<span class="badge cases" data-target="case-counter">{$statistic->cases->today}</span>
+						@if (isset($statistic->cases))
+							<span class="badge cases" data-target="case-counter">{$statistic->cases->today}</span>
+						@endif
 					</a>
 				</li>
 
 				<li>
 					<a $href="manager/feedbacks">
 						Feedbacks
-						<span class="badge feedbacks">{$statistic->feedbacks->today}</span>
+						@if (isset($statistic->feedbacks))
+							<span class="badge feedbacks">{$statistic->feedbacks->today}</span>
+						@endif
 					</a>
 				</li>
 				@endif
@@ -69,6 +73,7 @@
 				</div>
 				<ul data-target="dropdown">
 					<li><a $href="manager/profile">Profile</a></li>
+					<li><a $href="manager/jobs">Jobs/Tasks</a></li>
 					<li><a $href="logout">Logout</a></li>
 				</ul>
 			</div>

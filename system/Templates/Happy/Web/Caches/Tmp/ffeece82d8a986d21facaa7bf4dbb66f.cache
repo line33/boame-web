@@ -1,0 +1,58 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><section class="page-intro">
+    <span class="sub-title"><a href="<?=web_url("manager")?>">Dashboard</a>/<a href="">Counselors</a></span>
+    <h1 class="heading-text">Counselors <a href="" data-panel="add-counselor" class="cir-btn add-button"></a></h1> 
+</section>
+
+<div class="table-container volunteers">
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Avatar</th>
+				<th>Fullname</th>
+				<th>Email Address</th>
+				<th>Gender</th>
+				<th>Telephone</th>
+				<th>Cases Assigned</th>
+				<th>Added by</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<?php if($data->status == 'success') { ?>
+				<?php foreach ($data->records as $account) { ?>
+				<tr data-href="<?=\Happy\Directives::runDirective(true,'link','counselor/'.$account->accountid)?>">
+					<td>
+						<div class="avatar-curve">
+							<img src="<?=fromStorage($account->display_image)?>"/>
+						</div>
+					</td>
+					<td><?=ucwords($account->lastname . ' ' . $account->firstname)?></td>
+					<td><?=$account->email?></td>
+					<td><?=ucfirst($account->gender)?></td>
+					<td><?=$account->telephone?></td>
+					<td>
+						<a href="<?=\Happy\Directives::runDirective(true,'link','counselor/'.$account->accountid)?>" class="primary-link"><?=$account->cases_assigned?></a>
+					</td>
+					<td><?=ucwords($account->addedby->lastname . ' ' . $account->addedby->firstname)?></td>
+					<td>
+						<div class="table-controls">
+							<a href="<?=\Happy\Directives::runDirective(true,'link','counselor/edit/'.$account->accountid)?>" class="cir-btn edit"></a>
+							<a href="" data-input='<?=getAccountJson($account)?>' data-method="@deleteCounselor" class="cir-btn delete" data-modal="delete"></a>
+						</div>
+					</td>
+				</tr>
+				<?php } ?>
+			<?php } ?>
+		</tbody>
+	</table>
+</div>
+
+<!-- panel for this view -->
+<?=\Happy\Directives::runDirective(true,'partial','start-panel')?>
+	<?=\Happy\Directives::runDirective(true,'partial','add-counselor')?>
+<?=\Happy\Directives::runDirective(true,'endpanel')?>

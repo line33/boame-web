@@ -171,7 +171,7 @@ class Library extends Account
         app('assets')->exportVars(['article_title' => null]);
 
         // print message
-        event('ev')->emit('alert', $request->message, 'success');
+        event('ev')->emit('alert', $request->message . '. Please note that your video is currently being processed. Check back in 10 minutes.', 'success');
     }
 
     /**
@@ -227,6 +227,6 @@ class Library extends Account
         if ($request->status == 'error') return event('ev')->emit('alert', $request->message);
 
         // print message
-        event('ev')->emit('alert', $request->message, 'success');
+        event('ev')->emit('alert', $request->message . '. Please note that your video is currently being processed. Check back in 10 minutes.', 'success');
     }
 }

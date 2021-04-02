@@ -1,0 +1,63 @@
+<section class="page-intro">
+    <span class="sub-title"><a $href="manager">Dashboard</a>/<a href="">Job or Tasks</a></span>
+    <h1 class="heading-text">Background Tasks/Jobs</h1>
+</section>
+
+
+<!-- App usage -->
+<section class="table-section">
+	<h2 style="display: flex; align-items: center;">Queue List <img $src="spinner-test4.gif" style="width: 50px; height: 50px;"/></h2>
+	<div class="table-container">
+		<table class="table" cellspacing="0">
+			<thead>
+				<tr>
+					<th style="text-align: left;">Job</th>
+					<th>Status</th>
+					<th>Time Created</th>
+					<th>Time Completed</th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				@if ($jobs->rowCount() > 0)
+
+					{$index = 1;}
+
+					@while ($job = $jobs->fetch(FETCH_OBJ))
+
+						<tr>
+							<td style="text-align: left;">{$job->job_name}</td>
+							<td>
+								@if ($job->job_status == 'pending')
+									<span class="table-badge pending">pending</span>
+								@elseif ($job->job_status == 'complete')
+									<span class="table-badge approved">complete</span>
+								@else 
+									<span class="table-badge pending">pending</span>
+								@endif
+							</td>
+							<td>@timeAgo($job->time_queued);</td>
+							<td>
+								@if ($job->time_completed != '')
+									@timeAgo($job->time_completed);
+								@else 
+									<i>awaiting..</i>
+								@endif
+							</td>
+						</tr>
+
+						{$index++;}
+
+					@endwhile
+
+				@endif
+			</tbody>	
+		</table>
+	</div>
+</section>
+
+<script>
+	setInterval(()=>{
+		location.reload();
+	}, 8000);
+</script>

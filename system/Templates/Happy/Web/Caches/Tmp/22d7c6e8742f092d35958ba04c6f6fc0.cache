@@ -1,0 +1,13 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><!-- javascripts -->
+<?=assets()->loadJs($viewjs)?>
+
+<!-- load modal -->
+<?=\Happy\Directives::runDirective(true,'partial','alert-modal')?>
+
+<!-- end body,html -->
+</body>
+</html>

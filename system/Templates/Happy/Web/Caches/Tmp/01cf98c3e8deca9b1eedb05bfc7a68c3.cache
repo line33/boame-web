@@ -1,0 +1,107 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><!DOCTYPE html>
+<html lang="en-us">
+<head> 
+	<title><?=$package->getTitle()?></title>
+
+	<!-- meta tags -->
+	<?=\Happy\Directives::runDirective(true,'partial','meta-tags', ['package' => $package])?>
+
+	<!-- link tags -->
+	<link rel="canonical" href="<?=func()->url($package->getUrl())?>">
+
+	<!-- favicon -->
+	<link rel="icon" type="image/png" href="<?=$package->getIcon()?>" sizes="32x32">
+	
+	<!-- css -->
+	<?=assets()->loadCss($viewCss)?>
+	
+	<!-- default -->
+	<?=\Happy\Directives::runDirective(true,'setdefault')?>
+
+	<!-- editor -->
+	<?php if(isset($editorjs)) :
+
+                // get variable type
+                switch (gettype($editorjs)) :
+
+                    case 'string':
+                    case 'number':
+                    case 'integer':
+                        echo $editorjs;
+                    break;
+
+                    default:
+                        var_dump($editorjs);
+                endswitch;
+
+            endif;
+        ?>
+  
+</head>
+	
+<body>
+	
+<!-- preloader -->
+<?=\Happy\Directives::runDirective(true,'partial','preloader')?>
+
+<header class="app-header">
+	<div class="container app-header-container">
+		<div class="app-header-with-logo">
+			<a href="<?=web_url("manager")?>">
+				<img src="<?=assets_image("BOAME-logo.svg")?>" class="app-logo"/>
+			</a>
+			<form action="" method="POST" class="search-form">
+				<input type="text" name="search" placeholder="Search for anything"/>
+			</form>
+		</div>
+
+		<div class="app-header-links">
+			<ul>
+				<?php if(is_object($statistic)) { ?>
+				<li>
+					<a href="<?=web_url("manager/cases")?>">
+						Reported Cases
+						<?php if(isset($statistic->cases)) { ?>
+							<span class="badge cases" data-target="case-counter"><?=$statistic->cases->today?></span>
+						<?php } ?>
+					</a>
+				</li>
+
+				<li>
+					<a href="<?=web_url("manager/feedbacks")?>">
+						Feedbacks
+						<?php if(isset($statistic->feedbacks)) { ?>
+							<span class="badge feedbacks"><?=$statistic->feedbacks->today?></span>
+						<?php } ?>
+					</a>
+				</li>
+				<?php } ?>
+			</ul>
+			<div class="app-header-nav">
+				<div class="image-container">
+					<img src="<?=\Happy\Directives::runDirective(true,'info','display_image', 'fromStorage')?>"/>
+				</div>
+				<div class="user-dropdown">
+					<b><?=\Happy\Directives::runDirective(true,'info','lastname', 'formatName')?></b>
+					<span class="dropdown-button">
+						<img src="<?=assets_image("down-arrow.svg")?>"/>
+					</span>
+				</div>
+				<ul data-target="dropdown">
+					<li><a href="<?=web_url("manager/profile")?>">Profile</a></li>
+					<li><a href="<?=web_url("manager/jobs")?>">Jobs/Tasks</a></li>
+					<li><a href="<?=web_url("logout")?>">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="page-container">
+	<div class="page-container-section">
+		<!-- main content container -->
+		<div class="container add-spacing-top">

@@ -92,5 +92,18 @@ class App extends Controller
         // render view
         $this->view->render('completepasswordreset');
     }
+
+    /**
+    * @method App privacy
+    *
+    * See documentation https://www.moorexa.com/doc/controller
+    *
+    * You can catch params sent through the $_GET request
+    * @return void
+    **/
+    public function privacy() : void
+    {
+        $this->view->render('privacy');
+    }
 }
 // END class

@@ -1,0 +1,76 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><section class="page-intro">
+    <span class="sub-title"><a href="<?=web_url("manager")?>">Dashboard</a>/<a href="">Volunteers</a></span>
+    <h1 class="heading-text">Volunteers</h1>
+</section>
+
+<div class="table-container volunteers">
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Avatar</th>
+				<th>Fullname</th>
+				<th>Email Address</th>
+				<th>Gender</th>
+				<th>Date Applied</th>
+				<th>Application</th>
+				<th>Position</th>
+				<th>Approved by</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<?php if($response->status == 'success') { ?>
+				<?php foreach ($response->records as $record) { ?>
+					<tr data-href="<?=\Happy\Directives::runDirective(true,'link','volunteer/'.$record->accountid)?>">
+						<td>
+							<div class="avatar-curve">
+								<img src="<?=fromStorage($record->display_image)?>"/>
+							</div>
+						</td>
+						<td><?=ucwords($record->lastname . ' ' . $record->firstname)?></td>
+						<td><?=$record->email?></td>
+						<td><?=ucfirst($record->gender)?></td>
+						<td><?=date('Y-m-d g:i a', $record->information->date_created)?></td>
+						<td>
+							<?php
+if($record->information->approved == 0){?>
+<span class="table-badge pending" >pending</span>
+<?php }
+?>
+							<?php
+if($record->information->approved != 0){?>
+<span class="table-badge approved" >approved</span>
+<?php }
+?>
+						</td>
+						<td><?=ucfirst($record->information->position)?></td>
+						<td>
+							<?php if($record->information->approved == 0) { ?>
+								<form action="" method="POST">
+									<?=\Happy\Directives::runDirective(true,'csrf')?>
+									<?=\Happy\Directives::runDirective(true,'method','@approveVolunteer')?>
+									<input type="hidden" name="accountid" value="<?=$record->accountid?>"/>
+									<input type="hidden" name="comment" value="No comment by me. Candidate seems fit."/>
+									<button type="submit" class="cir-btn approve-btn" title="Click here to approve volunteer"></button>
+								</form>
+							<?php } else { ?>
+								<?=ucwords($record->information->approved_by_account->lastname . ' ' . $record->information->approved_by_account->firstname)?>
+							<?php } ?>
+						</td>
+						<td>
+							<div class="table-controls">
+								<a href="<?=\Happy\Directives::runDirective(true,'link','volunteer/'.$record->accountid)?>" class="cir-btn edit"></a>
+								<a href="" data-input='<?=getAccountJson($record)?>' data-method="@deleteVolunteer" class="cir-btn delete" data-modal="delete"></a>
+							</div>
+						</td>
+					</tr>
+				<?php } ?>
+			<?php } ?>
+		</tbody>
+	</table>
+</div>

@@ -32,10 +32,23 @@ Connection::load([
 			'pass'  	=>   '',
 			'dbname'    =>   '',
 		],
+		'prod' => [
+			'user' 		=> 'developer',
+			'pass' 		=> 'WekiWorkDeveloper@2020',
+			'dbname' 	=> 'boame_project'
+		],
+		'dev' => [
+			'host'      =>  'localhost',
+			'user'      =>  'root',
+			'pass'  	=>  'root',
+			'dbname'    =>  'boame_project',
+		],
 	],
-
 
 // choose from any of your configuration for a default connection
 ])
-->default(['development' => '', 'live' => '']);
+->default(['development' => 'new-db@dev', 'live' => ''])
+->domain('boameghana.org', 'new-db@prod')
+->domain('www.boameghana.org', 'new-db@prod')
+->domain('beta.wekiwork.com', 'new-db@prod');
 

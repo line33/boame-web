@@ -1,0 +1,67 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><section class="page-intro">
+    <span class="sub-title"><a href="<?=web_url("manager")?>">Dashboard</a>/<a href="">Job or Tasks</a></span>
+    <h1 class="heading-text">Background Tasks/Jobs</h1>
+</section>
+
+
+<!-- App usage -->
+<section class="table-section">
+	<h2 style="display: flex; align-items: center;">Queue List <img src="<?=assets_image("spinner-test4.gif")?>" style="width: 50px; height: 50px;"/></h2>
+	<div class="table-container">
+		<table class="table" cellspacing="0">
+			<thead>
+				<tr>
+					<th style="text-align: left;">Job</th>
+					<th>Status</th>
+					<th>Time Created</th>
+					<th>Time Completed</th>
+				</tr>
+			</thead>
+	
+			<tbody>
+				<?php if($jobs->rowCount() > 0) { ?>
+
+					<?php $index = 1;?>
+
+					<?php while ($job = $jobs->fetch(FETCH_OBJ)) { ?>
+
+						<tr>
+							<td style="text-align: left;"><?=$job->job_name?></td>
+							<td>
+								<?php if($job->job_status == 'pending') { ?>
+									<span class="table-badge pending">pending</span>
+								<?php } elseif ($job->job_status == 'complete') { ?>
+									<span class="table-badge approved">complete</span>
+								<?php } else { ?> 
+								<span class="table-badge approved">failed</span>
+								<?php } ?>
+							</td>
+							<td><?=\Happy\Directives::runDirective(true,'timeAgo',$job->time_queued)?></td>
+							<td>
+								<?php if($job->time_completed != '') { ?>
+									<?=\Happy\Directives::runDirective(true,'timeAgo',$job->time_completed)?>
+								<?php } else { ?> 
+									<i>awaiting..</i>
+								<?php } ?>
+							</td>
+						</tr>
+
+						<?php $index++;?>
+
+					<?php } ?>
+
+				<?php } ?>
+			</tbody>	
+		</table>
+	</div>
+</section>
+
+<script>
+	setInterval(()=>{
+		location.reload();
+	}, 8000);
+</script>

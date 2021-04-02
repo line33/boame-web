@@ -1,6 +1,7 @@
 <?php
 namespace Moorexa\Framework;
 
+use function Lightroom\Database\Functions\{db};
 use Moorexa\Framework\Models\{Cases, Account, Library};
 use Lightroom\Packager\Moorexa\Helpers\Assets;
 use Lightroom\Packager\Moorexa\MVC\Controller;
@@ -308,6 +309,24 @@ class Manager extends Controller
             'case'      => $caseReported->cases,
             'accounts'  => $account->getCounselorsAndVolunteers()
         ]);
+    }
+
+    /**
+    * @method Manager jobs
+    *
+    * See documentation https://www.moorexa.com/doc/controller
+    *
+    * You can catch params sent through the $_GET request
+    * @return void
+    **/
+    public function jobs() : void
+    {
+        // get last 20 jobs
+        $jobs = db('jobs')->get('job_name,job_status,time_queued,time_completed')->orderBy('jobid', 'desc')
+        ->limit(0, 20)->go();
+
+        // render view
+        $this->view->render('jobs', ['jobs' => $jobs]);
     }
 }
 // END class

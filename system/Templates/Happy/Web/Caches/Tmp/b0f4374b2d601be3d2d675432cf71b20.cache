@@ -1,0 +1,50 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><section class="page-intro">
+    <span class="sub-title"><a href="<?=web_url("manager")?>">Dashboard</a>/<a href="">Reporters</a></span>
+    <h1 class="heading-text">Reporters</h1>
+</section>
+
+<div class="table-container reporters">
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Avatar</th>
+				<th>Fullname</th>
+				<th>Email Address</th>
+				<th>Gender</th>
+				<th>Telephone</th>
+				<th>Date Registered</th>
+				<th>Submitted Cases</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<?php if($reporters->status == 'success') { ?>
+				<?php foreach ($reporters->accounts as $account) { ?>
+				<tr data-href="<?=\Happy\Directives::runDirective(true,'link','manager/account-overview/'.$account->accountid.'?history=manager/reporters')?>">
+					<td>
+						<div class="avatar-curve">
+							<img src="<?=fromStorage($account->display_image)?>"/>
+						</div>
+					</td>
+					<td><?=ucwords($account->lastname . ' ' . $account->firstname)?></td>
+					<td><?=$account->email?></td>
+					<td><?=ucwords($account->gender)?></td>
+					<td><?=$account->telephone?></td>
+					<td><?=date('Y-m-d g:i a', $account->date_created)?></td>
+					<td><a href="<?=\Happy\Directives::runDirective(true,'link','manager/account-overview/'.$account->accountid.'?history=manager/reporters')?>" class="primary-link"><?=$account->cases_submitted?></a></td>
+					<td>
+						<div class="table-controls">
+							<a href="" data-input='<?=getAccountJson($account)?>' data-method="@deleteReporter" class="cir-btn delete" data-modal="delete"></a>
+						</div>
+					</td>
+				</tr>
+				<?php } ?>
+			<?php } ?>
+		</tbody>
+	</table>
+</div>

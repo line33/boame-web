@@ -1,0 +1,55 @@
+<?php
+use function Lightroom\Templates\Functions\{controller};
+use function Lightroom\Requests\Functions\{session, cookie, get};
+use function Lightroom\Common\Functions\csrf;
+?><section class="page-intro">
+    <span class="sub-title"><a href="<?=web_url("manager")?>">Dashboard</a>/<a href="">Administrators</a></span>
+    <h1 class="heading-text">Administrators <a href="" data-panel="add-administrator" class="cir-btn add-button"></a></h1> 
+</section>
+
+<div class="table-container volunteers">
+	<table class="table" cellspacing="0">
+		<thead>
+			<tr>
+				<th>Avatar</th>
+				<th>Fullname</th>
+				<th>Email Address</th>
+				<th>Role</th>
+				<th>Telephone</th>
+				<th>Last Seen</th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<?php if($data->status == 'success') { ?>
+				<?php foreach ($data->accounts as $account) { ?>
+				<tr data-href="<?=\Happy\Directives::runDirective(true,'link','super-user/'.$account->accountid)?>">
+					<td>
+						<div class="avatar-curve">
+							<img src="<?=fromStorage($account->display_image)?>"/>
+						</div>
+					</td>
+					<td><?=ucwords($account->lastname . ' ' . $account->firstname)?></td>
+					<td><?=$account->email?></td>
+					<td><?=ucfirst($account->accountType)?></td>
+					<td><?=$account->telephone?></td>
+					<?php $time = \Happy\Directives::runDirective(true,'timeAgo',$account->last_seen);?>
+					<td><?=$account->last_seen == null ? 'Never' : $time?></td>
+					<td>
+						<div class="table-controls">
+							<a href="<?=\Happy\Directives::runDirective(true,'link','super-user/'.$account->accountid)?>" class="cir-btn edit"></a>
+							<a href="" data-input='<?=getAccountJson($account)?>' data-method="@deleteSuperUser" class="cir-btn delete" data-modal="delete"></a>
+						</div>
+					</td>
+				</tr>
+				<?php } ?>
+			<?php } ?>
+		</tbody>
+	</table>
+</div>
+
+<!-- panel for this view -->
+<?=\Happy\Directives::runDirective(true,'partial','start-panel')?>
+	<?=\Happy\Directives::runDirective(true,'partial','add-administrator')?>
+<?=\Happy\Directives::runDirective(true,'endpanel')?>
